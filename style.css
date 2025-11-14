@@ -1,0 +1,181 @@
+body {
+  background-color: #0d1117;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+/* ===== Alternância entre seções ===== */
+.content-section {
+  display: none;
+  animation: fade 0.4s ease;
+}
+
+.content-section.active {
+  display: block;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.container {
+  width: 90%;
+  margin: 20px auto;
+}
+/* ===== Escolher vizualizar herois ou itens ===== */
+.top-bar {
+  background-color: #1a1c20;
+  color: white;
+  display: flex;
+  justify-content: center; /* centraliza os botões no meio */
+  align-items: center;
+  border-bottom: 2px solid #333;
+  width: 100%; /* ocupa toda a largura */
+}
+
+.top-bar button {
+  flex: 1; /* cada botão ocupa metade da largura */
+  background-color: #2b2e33;
+  color: white;
+  border: none;
+  padding: 15px 0px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-right: 1px solid #333; /* linha entre os botões */
+}
+.top-bar button:hover {
+  background-color: #3c4047;
+}
+
+.top-bar button:last-child {
+  border-right: none; /* tira a linha do último botão */
+}
+
+/* ===== Filtros de Itens ===== */
+#filtros-itens {
+  background-color: #1a1c20;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 20px;
+  border-bottom: 2px solid #333;
+  flex-wrap: wrap; /* permite quebrar linha se precisar */
+}
+
+#filtros-itens h2,
+#filtros-itens h3 {
+  margin-right: 10px;
+}
+
+#filtros-itens input {
+  background-color: #2b2e33;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.filtro-categoria {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.filtro-categoria:hover {
+  transform: scale(1.1);
+}
+
+.filtro-categoria img {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+/* ===== Filtro das buscas ===== */
+.filtros-buscas {
+  background-color: #1a1c20;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 20px;
+  border-bottom: 2px solid #333;
+}
+
+.filtros-buscas img {
+  width: 32px;
+  height: 32px;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.filtros-buscas img:hover {
+  transform: scale(1.2);
+}
+
+.filtros-buscas input {
+  background-color: #2b2e33;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 6px;
+}
+
+/* ===== Grid dos herois ===== */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* Cada Card */
+.hero-card {
+  background: #161b22;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.hero-card:hover {
+  transform: scale(1.05);
+}
+
+.hero-card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.hero-card h2 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+/* Botão */
+.hero-card button {
+  background-color: #238636;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.hero-card button:hover {
+  background-color: #2ea043;
+}
