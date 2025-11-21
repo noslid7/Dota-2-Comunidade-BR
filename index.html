@@ -1,1047 +1,1463 @@
 <!DOCTYPE html>
 
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <title>Dota 2 heros and build</title>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="style.css">
-	<script src="script.js"></script>
-	<title>Dota 2 heros and build</title>
-	
-</head>
+  <body>
+    <!-- Topo do site -->
+    <header>
+      <!-- Escolher vizualizar herois ou itens -->
+      <div class="top-bar">
+        <button onclick="showSection('heroes')">Heróis</button>
+        <button onclick="showSection('items')">Items</button>
+      </div>
 
-<body>
-		<!-- Topo do site -->
-		<header>
-		
-		<!-- Escolher vizualizar herois ou itens -->
-		<div class="top-bar">	
-			<button onclick="showSection('heroes')">Heróis</button>
-			<button onclick="showSection('items')">Items</button>
-		</div>
-	
-			<!-- Campo de filtros -->
-			<div class="filtros-buscas" id="filtros">
-				<h2>Pesquisar herois</h2>
+      <!-- Campo de filtros -->
+      <div class="filtros-buscas" id="filtros">
+        <h2>Pesquisar herois</h2>
 
-				<!-- Campo de busca -->
-				 <input type="text" id="buscaHeroi" placeholder="Pesquisar herói..."/>
+        <!-- Campo de busca -->
+        <input type="text" id="buscaHeroi" placeholder="Pesquisar herói..." />
 
-				<h2>Filtrar herois</h2>
+        <h2>Filtrar herois</h2>
 
-				<!-- Filtrar por Meta -->
-				 <div class="Meta">
-						<img src="Assets\Icons\coroa.png" alt="Meta"/>
-						<h3>Meta</h3>
-				 </div>
-				<!-- Filtrar por atributos -->
-				<div class="atributos">
-					<span>Atributo</span>
-					<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-str-active.png" alt="Força">
-					<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-agi-active.png" alt="Agilidade">
-					<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-int-active.png" alt="Inteligencia">
-					<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-uni-active.png" alt="Universal">
-				</div>
+        <!-- Filtrar por Meta -->
+        <div class="Meta">
+          <img src="Assets\Icons\coroa.png" alt="Meta" />
+          <h3>Meta</h3>
+        </div>
+        <!-- Filtrar por atributos -->
+        <div class="atributos">
+          <span>Atributo</span>
+          <img
+            src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-str-active.png"
+            alt="Força"
+          />
+          <img
+            src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-agi-active.png"
+            alt="Agilidade"
+          />
+          <img
+            src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-int-active.png"
+            alt="Inteligencia"
+          />
+          <img
+            src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-uni-active.png"
+            alt="Universal"
+          />
+        </div>
 
-				<!-- Filtros por complexidade -->
-				<div class="Complexidade">
-					<span>Complexidade</span>
-					<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png" alt="Fácil">
-					<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png" alt="Médio">
-					<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png" alt="Difícil">
-				</div>
+        <!-- Filtros por complexidade -->
+        <div class="Complexidade">
+          <span>Complexidade</span>
+          <img
+            src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png"
+            alt="Fácil"
+          />
+          <img
+            src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png"
+            alt="Médio"
+          />
+          <img
+            src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png"
+            alt="Difícil"
+          />
+        </div>
+      </div>
 
-			</div>
+      <!-- Barra de filtros dos itens -->
+      <div class="filtros" id="filtros-itens" style="display: none">
+        <h2>Pesquisar itens</h2>
 
-			<!-- Barra de filtros dos itens -->
-				<div class="filtros" id="filtros-itens" style="display: none;">
-					<h2>Pesquisar itens</h2>
-					
-  				<input type="text" placeholder="Pesquisar item...">
+        <input type="text" placeholder="Pesquisar item..." />
 
-  			<h3>Filtros:</h3>
+        <h3>Filtros:</h3>
 
-  			<!-- Categoria 1 -->
-  				<div class="filtro-categoria">
-    				<span>Consumíveis</span>
-    				<img src="Assets\Icons\Shop_Consumables_Icon.png" alt="Consumíveis">
-  				</div>
+        <!-- Categoria 1 -->
+        <div class="filtro-categoria">
+          <span>Consumíveis</span>
+          <img src="Assets\Icons\Shop_Consumables_Icon.png" alt="Consumíveis" />
+        </div>
 
-  				<div class="filtro-categoria">
-    				<span>Atributos</span>
-    				<img src="Assets\Icons\Shop_Attributes_Icon.png" alt="Atributos">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Atributos</span>
+          <img src="Assets\Icons\Shop_Attributes_Icon.png" alt="Atributos" />
+        </div>
 
-  				<div class="filtro-categoria">
-    				<span>Equipamentos</span>
-    				<img src="Assets\Icons\Shop_Armaments_Icon.png" alt="Equipamentos">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Equipamentos</span>
+          <img src="Assets\Icons\Shop_Armaments_Icon.png" alt="Equipamentos" />
+        </div>
 
-  				<div class="filtro-categoria">
-    				<span>Miscellaneous</span>
-    				<img src="Assets\Icons\Shop_Arcane_Icon.png" alt="Miscellaneous">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Miscellaneous</span>
+          <img src="Assets\Icons\Shop_Arcane_Icon.png" alt="Miscellaneous" />
+        </div>
 
-  				<div class="filtro-categoria">
-    				<span>Shop secreto</span>
-    				<img src="Assets\Icons\Shop_Secret_Icon.png" alt="Secret">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Shop secreto</span>
+          <img src="Assets\Icons\Shop_Secret_Icon.png" alt="Secret" />
+        </div>
 
-  				<h3>Upgraded Items:</h3>
+        <h3>Upgraded Items:</h3>
 
-  				<div class="filtro-categoria">
-    				<span>Acessorios</span>
-    				<img src="Assets\Icons\Shop_Common_Icon.png" alt="Accessories">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Acessorios</span>
+          <img src="Assets\Icons\Shop_Common_Icon.png" alt="Accessories" />
+        </div>
 
-  				<div class="filtro-categoria">
-    				<span>Suporte</span>
-    				<img src="Assets\Icons\Shop_Support_Icon.png" alt="Support">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Suporte</span>
+          <img src="Assets\Icons\Shop_Support_Icon.png" alt="Support" />
+        </div>
 
-					<div class="filtro-categoria">
-    				<span>Mágicos</span>
-    				<img src="Assets\Icons\Shop_Caster_Icon.png" alt="Mágicos">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Mágicos</span>
+          <img src="Assets\Icons\Shop_Caster_Icon.png" alt="Mágicos" />
+        </div>
 
-					<div class="filtro-categoria">
-    				<span>Armadura</span>
-    				<img src="Assets\Icons\Shop_Armor_Icon.png" alt="Armadura">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Armadura</span>
+          <img src="Assets\Icons\Shop_Armor_Icon.png" alt="Armadura" />
+        </div>
 
-					<div class="filtro-categoria">
-    				<span>Armas</span>
-    				<img src="Assets\Icons\Shop_Weapons_Icon.png" alt="Armas">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Armas</span>
+          <img src="Assets\Icons\Shop_Weapons_Icon.png" alt="Armas" />
+        </div>
 
-					<div class="filtro-categoria">
-    				<span>Artefatos</span>
-    				<img src="Assets\Icons\Shop_Artifacts_Icon.png" alt="Artefatos">
-  				</div>
+        <div class="filtro-categoria">
+          <span>Artefatos</span>
+          <img src="Assets\Icons\Shop_Artifacts_Icon.png" alt="Artefatos" />
+        </div>
 
-					<div class="filtro-categoria">
-    				<h3>items neutros</h3>
-    				<img src="Assets\Icons\Tier_1_Token_icon.png" alt="items neutros">
-  				</div>
+        <div class="filtro-categoria">
+          <h3>items neutros</h3>
+          <img src="Assets\Icons\Tier_1_Token_icon.png" alt="items neutros" />
+        </div>
 
-					<div class="filtro-categoria">
-    				<h3>Recompensas do boss</h3>
-    				<img src="Assets\Icons\Aegis_of_the_Immortal_icon.png" alt="Recompensas do boss">
-  				</div>
+        <div class="filtro-categoria">
+          <h3>Recompensas do boss</h3>
+          <img
+            src="Assets\Icons\Aegis_of_the_Immortal_icon.png"
+            alt="Recompensas do boss"
+          />
+        </div>
 
-					<div class="filtro-categoria">
-    				<h3>Items coletáveis</h3>
-    				<img src="Assets\Icons\Healing_Lotus_icon.png" alt="Items coletáveis">
-  				</div>
-		</div>
-		</header>
-		<main>
-		<!-- Seção de Heróis -->
-		<section id="heroes" class="content-section active">
-		
-		<!-- Esta seção esta listando todos herois do dota -->
-		<div class="hero-grid">
-		
-		<!-- Abbadon -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png" alt="Abbadon">
-				<h2>Abbadon</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Alchemist -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png" alt="Alchemist">
-				<h2>Alchemist</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Ancient Apparition -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ancient_apparition.png" alt="Ancient Apparition">
-				<h2>Ancient Apparition</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Anti-Mage -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png" alt="Anti-Mage">
-				<h2>Anti-Mage</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Arc Warden -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png" alt="Arc Warden">
-				<h2>Arc Warden</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Axe -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png" alt="Axe">
-				<h2>Axe</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Bane -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png" alt="Bane">
-				<h2>Bane</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Batrider -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png" alt="Batrider">
-				<h2>Batrider</h2>
-				<button>Ver detalhes</button>
-			</div>	
-			
-		<!-- Beastmaster -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/beastmaster.png" alt="Beastmaster">
-				<h2>Beastmaster</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Bloodseeker -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png" alt="Bloodseeker">
-				<h2>Bloodseeker</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Bounty Hunter -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png" alt="Bounty Hunter">
-				<h2>Bounty Hunter</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Brewmaster -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png" alt="Brewmaster">
-				<h2>Brewmaster</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Bristleback -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png" alt="Bristleback">
-				<h2>Bristleback</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Broodmother -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/broodmother.png" alt="Broodmother">
-				<h2>Broodmother</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Centaur Warrunner -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png" alt="Centaur Warrunner">
-				<h2>Centaur Warrunner</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Chaos Knight -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png" alt="Chaos Knight">
-				<h2>Chaos Knight</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Chen -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png" alt="Chen">
-				<h2>Chen</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Clinkz -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png" alt="Clinkz">
-				<h2>Clinkz</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Clockwerk -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png" alt="Clockwerk">
-				<h2>Clockwerk</h2>
-				<button>Ver detalhes</button>
-			</div>
-		
-		<!-- Crystal Maiden -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png" alt="Crystal Maiden">
-				<h2>Crystal Maiden</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Dark Seer -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png" alt="Dark Seer">
-				<h2>Dark Seer</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Dark Willow -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png" alt="Dark Willow">
-				<h2>Dark Willow</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Dawnbreaker -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png" alt="Dawnbreaker">
-				<h2>Dawnbreaker</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Dazzle -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png" alt="Dazzle">
-				<h2>Dazzle</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Death Prophet -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png" alt="Death Prophet">
-				<h2>Death Prophet</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Disruptor -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png" alt="Disruptor">
-				<h2>Disruptor</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Doom -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png" alt="Doom">
-				<h2>Doom</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Dragon Knight -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png" alt="Dragon Knight">
-				<h2>Dragon Knight</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Drow Ranger -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png" alt="Drow Ranger">
-				<h2>Drow Ranger</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Earth Spirit -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png" alt="Earth Spirit">
-				<h2>Earth Spirit</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Earthshaker -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png" alt="Earthshaker">
-				<h2>Earthshaker</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Elder Titan -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png" alt="Elder Titan">
-				<h2>Elder Titan</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Ember Spirit -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png" alt="Ember Spirit">
-				<h2>Ember Spirit</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Enchantress -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png" alt="Enchantress">
-				<h2>Enchantress</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Enigma -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/enigma.png" alt="Enigma">
-				<h2>Enigma</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Faceless Void -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png" alt="Faceless Void">
-				<h2>Faceless Void</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Grimstroke -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png" alt="Grimstroke">
-				<h2>Grimstroke</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Gyrocopter -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png" alt="Gyrocopter">
-				<h2>Gyrocopter</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Hoodwink -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png" alt="Hoodwink">
-				<h2>Hoodwink</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Huskar -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png" alt="Huskar">
-				<h2>Huskar</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Invoker -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png" alt="Invoker">
-				<h2>Invoker</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Io -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png" alt="Io">
-				<h2>Io</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Jakiro -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png" alt="Jakiro">
-				<h2>Jakiro</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Juggernaut -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png" alt="Juggernaut">
-				<h2>Juggernaut</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Keeper of the Light -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png" alt="Keeper of the Light">
-				<h2>Keeper of the Light</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Kez -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png" alt="Kez">
-				<h2>Kez</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Kunkka -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png" alt="Kunkka">
-				<h2>Kunkka</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Legion Commander -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png" alt="Legion Commander">
-				<h2>Legion Commander</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Leshrac -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png" alt="Leshrac">
-				<h2>Leshrac</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Lich -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png" alt="Lich">
-				<h2>Lich</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Lifestealer -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png" alt="Lifestealer">
-				<h2>Lifestealer</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Lina -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png" alt="Lina">
-				<h2>Lina</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Lion -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png" alt="Lion">
-				<h2>Lion</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Lone Druid -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png" alt="Lone Druid">
-				<h2>Lone Druid</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Luna -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png" alt="Luna">
-				<h2>Luna</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Lycan -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png" alt="Lycan">
-				<h2>Lycan</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Magnus -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png" alt="Magnus">
-				<h2>Magnus</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Marci-->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png" alt="Marci">
-				<h2>Marci</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Mars -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png" alt="Mars">
-				<h2>Mars</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Medusa -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png" alt="Medusa">
-				<h2>Medusa</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Meepo -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png" alt="Meepo">
-				<h2>Meepo</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Mirana -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png" alt="Mirana">
-				<h2>Mirana</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Monkey King -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png" alt="Monkey King">
-				<h2>Monkey King</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Morphling -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png" alt="Morphling">
-				<h2>Morphling</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Muerta -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png" alt="Muerta">
-				<h2>Muerta</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Naga Siren -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png" alt="Naga Siren">
-				<h2>Naga Siren</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Nature's Prophet -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png" alt="Nature's Prophet">
-				<h2>Nature's Prophet</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Necrophos -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png" alt="Necrophos">
-				<h2>Necrophos</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Night Stalker -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/night_stalker.png" alt="Night Stalker">
-				<h2>Night Stalker</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Nyx Assassin -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png" alt="Nyx Assassin">
-				<h2>Nyx Assassin</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Ogre Magi -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png" alt="Ogre Magi">
-				<h2>Ogre Magi</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Omniknight -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png" alt="Omniknight">
-				<h2>Omniknight</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Oracle -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png" alt="Oracle">
-				<h2>Oracle</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Outworld Destroyer -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png" alt="Outworld Destroyer">
-				<h2>Outworld Destroyer</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Pangolier -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png" alt="Pangolier">
-				<h2>Pangolier</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Phantom Assassin -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png" alt="Phantom Assassin">
-				<h2>Phantom Assassin</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Phantom Lancer -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_lancer.png" alt="Phantom Lancer">
-				<h2>Phantom Lancer</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Phoenix -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png" alt="Phoenix">
-				<h2>Phoenix</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Primal Beast -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/primal_beast.png" alt="Primal Beast">
-				<h2>Primal Beast</h2>
-				<button>Ver detalhes</button>
-			</div>	
-		
-		<!-- Puck -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png" alt="Puck">
-				<h2>Puck</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Pudge -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png" alt="Pudge">
-				<h2>Pudge</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Pugna -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png" alt="Pugna">
-				<h2>Pugna</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Queen of Pain -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png" alt="Queen of Pain">
-				<h2>Queen of Pain</h2>
-				<button>Ver detalhes</button>
-			</div>
+        <div class="filtro-categoria">
+          <h3>Items coletáveis</h3>
+          <img
+            src="Assets\Icons\Healing_Lotus_icon.png"
+            alt="Items coletáveis"
+          />
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- Seção de Heróis -->
+      <section id="heroes" class="content-section active">
+        <!-- Esta seção esta listando todos herois do dota -->
+        <div class="hero-grid">
+          <!-- Abbadon -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/abaddon.png"
+              alt="Abbadon"
+            />
+            <h2>Abbadon</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Razor -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png" alt="Razor">
-				<h2>Razor</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Alchemist -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/alchemist.png"
+              alt="Alchemist"
+            />
+            <h2>Alchemist</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Riki -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png" alt="Riki">
-				<h2>Riki</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Ancient Apparition -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ancient_apparition.png"
+              alt="Ancient Apparition"
+            />
+            <h2>Ancient Apparition</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Ring Master -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png" alt="Ring Master">
-				<h2>Ring Master</h2>
-				<button>Ver detalhes</button>
-			</div>	
+          <!-- Anti-Mage -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png"
+              alt="Anti-Mage"
+            />
+            <h2>Anti-Mage</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Rubick -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png" alt="Rubick">
-				<h2>Rubick</h2>
-				<button>Ver detalhes</button>
-			</div>
-		
-		<!-- Sand King -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png" alt="Sand King">
-				<h2>Sand King</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Shadow Demon -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png" alt="Shadow Demon">
-				<h2>Shadow Demon</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Shadow Fiend -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png" alt="Shadow Fiend">
-				<h2>Shadow Fiend</h2>
-				<button>Ver detalhes</button>
-			</div>	
-		
-		<!-- Shadow Shaman -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png" alt="Shadow Shaman">
-				<h2>Shadow Shaman</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Silencer -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png" alt="Silencer">
-				<h2>Silencer</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Skywrath Mage -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png" alt="Skywrath Mage">
-				<h2>Skywrath Mage</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Slardar -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png" alt="Slardar">
-				<h2>Slardar</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Arc Warden -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/arc_warden.png"
+              alt="Arc Warden"
+            />
+            <h2>Arc Warden</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Slark -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png" alt="Slark">
-				<h2>Slark</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Axe -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png"
+              alt="Axe"
+            />
+            <h2>Axe</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Snapfire -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png" alt="Snapfire">
-				<h2>Snapfire</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Bane -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bane.png"
+              alt="Bane"
+            />
+            <h2>Bane</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Sniper -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png" alt="Sniper">
-				<h2>Sniper</h2>
-				<button>Ver detalhes</button>
-			</div>
-		
-		<!-- Spectre -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png" alt="Spectre">
-				<h2>Spectre</h2>
-				<button>Ver detalhes</button>
-			</div>
-		
-		<!-- Spirit Breaker -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png" alt="Spirit Breaker">
-				<h2>Spirit Breaker</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Storm Spirit -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png" alt="Storm Spirit">
-				<h2>Storm Spirit</h2>
-				<button>Ver detalhes</button>
-			</div>	
-		
-		<!-- Sven -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png" alt="Sven">
-				<h2>Sven</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Techies -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png" alt="Techies">
-				<h2>Techies</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Templar Assassin -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/templar_assassin.png" alt="Templar Assassin">
-				<h2>Templar Assassin</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Terrorblade -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png" alt="Terrorblade">
-				<h2>Terrorblade</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Batrider -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/batrider.png"
+              alt="Batrider"
+            />
+            <h2>Batrider</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Tidehunter -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png" alt="Tidehunter">
-				<h2>Tidehunter</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Beastmaster -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/beastmaster.png"
+              alt="Beastmaster"
+            />
+            <h2>Beastmaster</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Timbersaw -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png" alt="Timbersaw">
-				<h2>Timbersaw</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Bloodseeker -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bloodseeker.png"
+              alt="Bloodseeker"
+            />
+            <h2>Bloodseeker</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Tinker -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png" alt="Tinker">
-				<h2>Tinker</h2>
-				<button>Ver detalhes</button>
-			</div>
-		
-		<!-- Tiny -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png" alt="Tiny">
-				<h2>Tiny</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Treant Protector -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png" alt="Treant Protector">
-				<h2>Treant Protector</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Troll Warlord -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/troll_warlord.png" alt="Troll Warlord">
-				<h2>Troll Warlord</h2>
-				<button>Ver detalhes</button>
-			</div>	
-		
-		<!-- Tusk -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png" alt="Tusk">
-				<h2>Tusk</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Underlord -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png" alt="Underlord">
-				<h2>Underlord</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Undying -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png" alt="Undying">
-				<h2>Undying</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-		<!-- Ursa -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ursa.png" alt="Ursa">
-				<h2>Ursa</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Bounty Hunter -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png"
+              alt="Bounty Hunter"
+            />
+            <h2>Bounty Hunter</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Vengeful Spirit -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png" alt="Vengeful Spirit">
-				<h2>Vengeful Spirit</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Brewmaster -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png"
+              alt="Brewmaster"
+            />
+            <h2>Brewmaster</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Venomancer -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png" alt="Venomancer">
-				<h2>Venomancer</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Bristleback -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/bristleback.png"
+              alt="Bristleback"
+            />
+            <h2>Bristleback</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Viper -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png" alt="Viper">
-				<h2>Viper</h2>
-				<button>Ver detalhes</button>
-			</div>
-		
-		<!-- Visage -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png" alt="Visage">
-				<h2>Visage</h2>
-				<button>Ver detalhes</button>
-			</div>
-			
-			<!-- Void Spirit -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png" alt="Void Spirit">
-				<h2>Void Spirit</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Broodmother -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/broodmother.png"
+              alt="Broodmother"
+            />
+            <h2>Broodmother</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-			<!-- Warlock -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png" alt="Warlock">
-				<h2>Warlock</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Centaur Warrunner -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/centaur.png"
+              alt="Centaur Warrunner"
+            />
+            <h2>Centaur Warrunner</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-			<!-- Weaver -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png" alt="Weaver">
-				<h2>Weaver</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Chaos Knight -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png"
+              alt="Chaos Knight"
+            />
+            <h2>Chaos Knight</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-			<!-- Windranger -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png" alt="Windranger">
-				<h2>Windranger</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Chen -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/chen.png"
+              alt="Chen"
+            />
+            <h2>Chen</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-			<!-- Winter Wyvern -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png" alt="Winter Wyvern">
-				<h2>Winter Wyvern</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Clinkz -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/clinkz.png"
+              alt="Clinkz"
+            />
+            <h2>Clinkz</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-			<!-- Witch Doctor -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png" alt="Witch Doctor">
-				<h2>Witch Doctor</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Clockwerk -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/rattletrap.png"
+              alt="Clockwerk"
+            />
+            <h2>Clockwerk</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-			<!-- Wraith King -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png" alt="Wraith King">
-				<h2>Wraith King</h2>
-				<button>Ver detalhes</button>
-			</div>
+          <!-- Crystal Maiden -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/crystal_maiden.png"
+              alt="Crystal Maiden"
+            />
+            <h2>Crystal Maiden</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-			<!-- Zeus -->
-			<div class="hero-card">
-				<img src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png" alt="Zeus">
-				<h2>Zeus</h2>
-				<button>Ver detalhes</button>
-			</div>	
-		</div>
+          <!-- Dark Seer -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_seer.png"
+              alt="Dark Seer"
+            />
+            <h2>Dark Seer</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Seção de Itens -->
-			<section id="items" class="content-section">
-				<div class="item-grid">
-					<h2>Itens do Dota 2</h2>
-					<p>(Conteúdo em construção...)</p>
-				</div>
-			</section>
+          <!-- Dark Willow -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dark_willow.png"
+              alt="Dark Willow"
+            />
+            <h2>Dark Willow</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		</main>
+          <!-- Dawnbreaker -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png"
+              alt="Dawnbreaker"
+            />
+            <h2>Dawnbreaker</h2>
+            <button>Ver detalhes</button>
+          </div>
 
-		<!-- Rodapé -->
-	<footer>
-		Todos direitos reservados Valve. Site criado por Jose, para ajudar a comunidade.
-	</footer>
-</body>
+          <!-- Dazzle -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png"
+              alt="Dazzle"
+            />
+            <h2>Dazzle</h2>
+            <button>Ver detalhes</button>
+          </div>
 
+          <!-- Death Prophet -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/death_prophet.png"
+              alt="Death Prophet"
+            />
+            <h2>Death Prophet</h2>
+            <button>Ver detalhes</button>
+          </div>
 
+          <!-- Disruptor -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png"
+              alt="Disruptor"
+            />
+            <h2>Disruptor</h2>
+            <button>Ver detalhes</button>
+          </div>
 
+          <!-- Doom -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/doom_bringer.png"
+              alt="Doom"
+            />
+            <h2>Doom</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Dragon Knight -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/dragon_knight.png"
+              alt="Dragon Knight"
+            />
+            <h2>Dragon Knight</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Drow Ranger -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/drow_ranger.png"
+              alt="Drow Ranger"
+            />
+            <h2>Drow Ranger</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Earth Spirit -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/earth_spirit.png"
+              alt="Earth Spirit"
+            />
+            <h2>Earth Spirit</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Earthshaker -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/earthshaker.png"
+              alt="Earthshaker"
+            />
+            <h2>Earthshaker</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Elder Titan -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/elder_titan.png"
+              alt="Elder Titan"
+            />
+            <h2>Elder Titan</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Ember Spirit -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ember_spirit.png"
+              alt="Ember Spirit"
+            />
+            <h2>Ember Spirit</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Enchantress -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/enchantress.png"
+              alt="Enchantress"
+            />
+            <h2>Enchantress</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Enigma -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/enigma.png"
+              alt="Enigma"
+            />
+            <h2>Enigma</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Faceless Void -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/faceless_void.png"
+              alt="Faceless Void"
+            />
+            <h2>Faceless Void</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Grimstroke -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/grimstroke.png"
+              alt="Grimstroke"
+            />
+            <h2>Grimstroke</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Gyrocopter -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png"
+              alt="Gyrocopter"
+            />
+            <h2>Gyrocopter</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Hoodwink -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/hoodwink.png"
+              alt="Hoodwink"
+            />
+            <h2>Hoodwink</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Huskar -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/huskar.png"
+              alt="Huskar"
+            />
+            <h2>Huskar</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Invoker -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png"
+              alt="Invoker"
+            />
+            <h2>Invoker</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Io -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/wisp.png"
+              alt="Io"
+            />
+            <h2>Io</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Jakiro -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png"
+              alt="Jakiro"
+            />
+            <h2>Jakiro</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Juggernaut -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png"
+              alt="Juggernaut"
+            />
+            <h2>Juggernaut</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Keeper of the Light -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/keeper_of_the_light.png"
+              alt="Keeper of the Light"
+            />
+            <h2>Keeper of the Light</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Kez -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/kez.png"
+              alt="Kez"
+            />
+            <h2>Kez</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Kunkka -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png"
+              alt="Kunkka"
+            />
+            <h2>Kunkka</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Legion Commander -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/legion_commander.png"
+              alt="Legion Commander"
+            />
+            <h2>Legion Commander</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Leshrac -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/leshrac.png"
+              alt="Leshrac"
+            />
+            <h2>Leshrac</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Lich -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png"
+              alt="Lich"
+            />
+            <h2>Lich</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Lifestealer -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/life_stealer.png"
+              alt="Lifestealer"
+            />
+            <h2>Lifestealer</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Lina -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lina.png"
+              alt="Lina"
+            />
+            <h2>Lina</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Lion -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lion.png"
+              alt="Lion"
+            />
+            <h2>Lion</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Lone Druid -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lone_druid.png"
+              alt="Lone Druid"
+            />
+            <h2>Lone Druid</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Luna -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/luna.png"
+              alt="Luna"
+            />
+            <h2>Luna</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Lycan -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png"
+              alt="Lycan"
+            />
+            <h2>Lycan</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Magnus -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/magnataur.png"
+              alt="Magnus"
+            />
+            <h2>Magnus</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Marci-->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/marci.png"
+              alt="Marci"
+            />
+            <h2>Marci</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Mars -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/mars.png"
+              alt="Mars"
+            />
+            <h2>Mars</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Medusa -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/medusa.png"
+              alt="Medusa"
+            />
+            <h2>Medusa</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Meepo -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/meepo.png"
+              alt="Meepo"
+            />
+            <h2>Meepo</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Mirana -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/mirana.png"
+              alt="Mirana"
+            />
+            <h2>Mirana</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Monkey King -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/monkey_king.png"
+              alt="Monkey King"
+            />
+            <h2>Monkey King</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Morphling -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/morphling.png"
+              alt="Morphling"
+            />
+            <h2>Morphling</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Muerta -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/muerta.png"
+              alt="Muerta"
+            />
+            <h2>Muerta</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Naga Siren -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/naga_siren.png"
+              alt="Naga Siren"
+            />
+            <h2>Naga Siren</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Nature's Prophet -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/furion.png"
+              alt="Nature's Prophet"
+            />
+            <h2>Nature's Prophet</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Necrophos -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/necrolyte.png"
+              alt="Necrophos"
+            />
+            <h2>Necrophos</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Night Stalker -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/night_stalker.png"
+              alt="Night Stalker"
+            />
+            <h2>Night Stalker</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Nyx Assassin -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/nyx_assassin.png"
+              alt="Nyx Assassin"
+            />
+            <h2>Nyx Assassin</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Ogre Magi -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ogre_magi.png"
+              alt="Ogre Magi"
+            />
+            <h2>Ogre Magi</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Omniknight -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png"
+              alt="Omniknight"
+            />
+            <h2>Omniknight</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Oracle -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/oracle.png"
+              alt="Oracle"
+            />
+            <h2>Oracle</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Outworld Destroyer -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/obsidian_destroyer.png"
+              alt="Outworld Destroyer"
+            />
+            <h2>Outworld Destroyer</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Pangolier -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/pangolier.png"
+              alt="Pangolier"
+            />
+            <h2>Pangolier</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Phantom Assassin -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png"
+              alt="Phantom Assassin"
+            />
+            <h2>Phantom Assassin</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Phantom Lancer -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_lancer.png"
+              alt="Phantom Lancer"
+            />
+            <h2>Phantom Lancer</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Phoenix -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/phoenix.png"
+              alt="Phoenix"
+            />
+            <h2>Phoenix</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Primal Beast -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/primal_beast.png"
+              alt="Primal Beast"
+            />
+            <h2>Primal Beast</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Puck -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/puck.png"
+              alt="Puck"
+            />
+            <h2>Puck</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Pudge -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png"
+              alt="Pudge"
+            />
+            <h2>Pudge</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Pugna -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png"
+              alt="Pugna"
+            />
+            <h2>Pugna</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Queen of Pain -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/queenofpain.png"
+              alt="Queen of Pain"
+            />
+            <h2>Queen of Pain</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Razor -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/razor.png"
+              alt="Razor"
+            />
+            <h2>Razor</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Riki -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/riki.png"
+              alt="Riki"
+            />
+            <h2>Riki</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Ring Master -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ringmaster.png"
+              alt="Ring Master"
+            />
+            <h2>Ring Master</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Rubick -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png"
+              alt="Rubick"
+            />
+            <h2>Rubick</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Sand King -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/sand_king.png"
+              alt="Sand King"
+            />
+            <h2>Sand King</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Shadow Demon -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_demon.png"
+              alt="Shadow Demon"
+            />
+            <h2>Shadow Demon</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Shadow Fiend -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png"
+              alt="Shadow Fiend"
+            />
+            <h2>Shadow Fiend</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Shadow Shaman -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shadow_shaman.png"
+              alt="Shadow Shaman"
+            />
+            <h2>Shadow Shaman</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Silencer -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/silencer.png"
+              alt="Silencer"
+            />
+            <h2>Silencer</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Skywrath Mage -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/skywrath_mage.png"
+              alt="Skywrath Mage"
+            />
+            <h2>Skywrath Mage</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Slardar -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png"
+              alt="Slardar"
+            />
+            <h2>Slardar</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Slark -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/slark.png"
+              alt="Slark"
+            />
+            <h2>Slark</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Snapfire -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png"
+              alt="Snapfire"
+            />
+            <h2>Snapfire</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Sniper -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png"
+              alt="Sniper"
+            />
+            <h2>Sniper</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Spectre -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/spectre.png"
+              alt="Spectre"
+            />
+            <h2>Spectre</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Spirit Breaker -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png"
+              alt="Spirit Breaker"
+            />
+            <h2>Spirit Breaker</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Storm Spirit -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/storm_spirit.png"
+              alt="Storm Spirit"
+            />
+            <h2>Storm Spirit</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Sven -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/sven.png"
+              alt="Sven"
+            />
+            <h2>Sven</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Techies -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/techies.png"
+              alt="Techies"
+            />
+            <h2>Techies</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Templar Assassin -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/templar_assassin.png"
+              alt="Templar Assassin"
+            />
+            <h2>Templar Assassin</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Terrorblade -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/terrorblade.png"
+              alt="Terrorblade"
+            />
+            <h2>Terrorblade</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Tidehunter -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tidehunter.png"
+              alt="Tidehunter"
+            />
+            <h2>Tidehunter</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Timbersaw -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png"
+              alt="Timbersaw"
+            />
+            <h2>Timbersaw</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Tinker -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png"
+              alt="Tinker"
+            />
+            <h2>Tinker</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Tiny -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tiny.png"
+              alt="Tiny"
+            />
+            <h2>Tiny</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Treant Protector -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/treant.png"
+              alt="Treant Protector"
+            />
+            <h2>Treant Protector</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Troll Warlord -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/troll_warlord.png"
+              alt="Troll Warlord"
+            />
+            <h2>Troll Warlord</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Tusk -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/tusk.png"
+              alt="Tusk"
+            />
+            <h2>Tusk</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Underlord -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/abyssal_underlord.png"
+              alt="Underlord"
+            />
+            <h2>Underlord</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Undying -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/undying.png"
+              alt="Undying"
+            />
+            <h2>Undying</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Ursa -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/ursa.png"
+              alt="Ursa"
+            />
+            <h2>Ursa</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Vengeful Spirit -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/vengefulspirit.png"
+              alt="Vengeful Spirit"
+            />
+            <h2>Vengeful Spirit</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Venomancer -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/venomancer.png"
+              alt="Venomancer"
+            />
+            <h2>Venomancer</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Viper -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/viper.png"
+              alt="Viper"
+            />
+            <h2>Viper</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Visage -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/visage.png"
+              alt="Visage"
+            />
+            <h2>Visage</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Void Spirit -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png"
+              alt="Void Spirit"
+            />
+            <h2>Void Spirit</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Warlock -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/warlock.png"
+              alt="Warlock"
+            />
+            <h2>Warlock</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Weaver -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/weaver.png"
+              alt="Weaver"
+            />
+            <h2>Weaver</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Windranger -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/windrunner.png"
+              alt="Windranger"
+            />
+            <h2>Windranger</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Winter Wyvern -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/winter_wyvern.png"
+              alt="Winter Wyvern"
+            />
+            <h2>Winter Wyvern</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Witch Doctor -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/witch_doctor.png"
+              alt="Witch Doctor"
+            />
+            <h2>Witch Doctor</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Wraith King -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/skeleton_king.png"
+              alt="Wraith King"
+            />
+            <h2>Wraith King</h2>
+            <button>Ver detalhes</button>
+          </div>
+
+          <!-- Zeus -->
+          <div class="hero-card">
+            <img
+              src="https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/zuus.png"
+              alt="Zeus"
+            />
+            <h2>Zeus</h2>
+            <button>Ver detalhes</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção de Itens -->
+      <section id="items" class="content-section">
+        <div class="item-grid">
+          <!-- Blink Dagger -->
+          <div class="item-card">
+            <img
+              src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/items/blink_lg.png"
+              alt="Blink Dagger"
+            />
+            <h3>Blink Dagger</h3>
+            <p class="descricao-item">Teleporta para uma curta distância.</p>
+          </div>
+
+          <!-- Seção de Itens -->
+          <div class="item-card">
+            <img
+              src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/items/black_king_bar_lg.png"
+              alt="Black King Bar"
+            />
+            <h3>Black King Bar</h3>
+            <p class="descricao-item">
+              Concede imunidade à magia por um período.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+      Todos direitos reservados Valve. Site criado por Jose, para ajudar a
+      comunidade.
+    </footer>
+  </body>
 </html>
